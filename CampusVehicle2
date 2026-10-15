@@ -1,0 +1,106 @@
+#CampusVehicle
+
+package edu.monmouth.campusvehicle;
+
+public class CampusVehicle {
+	
+	 // Stores the vehicle's information.
+	private String id;
+    private String location;
+    private boolean available;
+
+    // Used when the ID or location is invalid.
+    private static final String UNKNOWN = "UNKNOWN";
+
+
+    // Default construction, exercised in Requirements 8(b)-8(c). Creates a vehicle with default values.
+    public CampusVehicle() {
+        this(null, null, false);
+    }
+
+
+    // Used by the tests in Requirements 8(g)-8(h) and 8(l). Creates a vehicle with the given information.
+    public CampusVehicle(String initialId, String initialLocation,
+                         boolean initialAvailability) {
+        setId(initialId);
+        setLocation(initialLocation);
+        setAvailable(initialAvailability);
+    }
+
+
+    // Checks if the ID has a valid length and starts with MU.
+    public void setId(String newId) {
+
+        boolean validId = newId != null
+                && newId.length() >= 4
+                && newId.length() <= 12
+                && newId.substring(0, 2).equalsIgnoreCase("MU");
+                
+        // Sets the ID to UNKNOWN if it is not valid.
+        if (validId) {
+            this.id = newId;
+        } else {
+            this.id = UNKNOWN;
+        }
+    }
+
+
+    // Returns the vehicle's ID.
+    public String getId() {
+        return this.id;
+    }
+
+
+    // Requirements 4 and 7: Checks if the location is one of the allowed places.
+    public void setLocation(String newLocation) {
+
+        boolean validLocation = newLocation != null
+                && (newLocation.equalsIgnoreCase("Library")
+                || newLocation.equalsIgnoreCase("University Bluffs")
+                || newLocation.equalsIgnoreCase("Parking Lot")
+                || newLocation.equalsIgnoreCase("Spruce Hall")
+                || newLocation.equalsIgnoreCase("Laurel Hall"));
+
+        // Requirement 5: Replace a rejected location with UNKNOWN.
+        if (validLocation) {
+            this.location = newLocation;
+        } else {
+            this.location = UNKNOWN;
+        }
+    }
+
+
+    // Returns the vehicle's location.
+    public String getLocation() {
+        return this.location;
+    }
+
+
+    // Exercised in Requirements 8(d) and 8(i). Returns the vehicle's location.
+    public void setAvailable(boolean newAvailability) {
+        this.available = newAvailability;
+    }
+
+
+    // Exercised in Requirements 8(f), 8(k), and 8(l). Updates the vehicle's avilability.
+    public boolean isAvailable() {
+        return this.available;
+    }
+
+
+    // Checks out the vehicle only if it is available.
+    public void checkout() {
+        if (this.available) {
+            this.available = false;
+        }
+    }
+
+
+    // Makes the vehicle available again after returning it.
+    public void returnVehicle() {
+        this.available = true;
+		
+		
+	}
+
+}
